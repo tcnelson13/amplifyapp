@@ -30,9 +30,9 @@ const App = ({ signOut }) => {
     const notesFromAPI = apiData.data.listNotes.items;
     await Promise.all(
       notesFromAPI.map(async (note) => {
-        if (note.Image) {
+        if (note.image) {
           const url = await Storage.get(note.name);
-          note.Image = url;
+          note.image = url;
         }
       })
     );
@@ -74,10 +74,11 @@ const App = ({ signOut }) => {
         <Flex direction="row" justifyContent="center">
           <TextField name="name" placeholder="Note Name" label="Note Name" labelHidden variation="quiet" required />
           <TextField name="description" placeholder="Note Description" label="Note Description" labelHidden variation="quiet" required />
-          <Button type="submit" variation="primary">Creat Note</Button>
+          <View name="image" as="input" type="file" style={{ alignSelf: "end" }} />
+          <Button type="submit" variation="primary">Create Note</Button>
         </Flex>
+        
       </View>
-      <View name="image" as="input" type="file" style={{ alignSelf: "end" }} />
       <Heading level={2}>Current Notes</Heading>
       <View margin="3rem 0">
         {notes.map((note) => (
